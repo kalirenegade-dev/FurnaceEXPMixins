@@ -1,28 +1,23 @@
 package FurnaceEXPMixins.mixin.vanilla;
 
 import FurnaceEXPMixins.FurnaceEXPMixins;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.world.World;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import org.apache.logging.log4j.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
 
 @Mixin(TileEntityFurnace.class)
 public abstract class TileEntityFurnaceMixin extends TileEntity {
 
-    private float totalExperience = 0;
-
     @Inject(method = "smeltItem", at = @At("HEAD"))
     private void smeltItem(CallbackInfo callbackInfo) {
+        FurnaceEXPMixins.LOGGER.info("smeltItem");
         TileEntityFurnace furnace = (TileEntityFurnace)(Object)this;
 
         // Accumulate experience gained from smelting
@@ -30,29 +25,15 @@ public abstract class TileEntityFurnaceMixin extends TileEntity {
             ItemStack itemStack = furnace.getStackInSlot(i);
             if (!itemStack.isEmpty()) {
                 float itemExperience = getSmeltingExperience(itemStack);
+                float totalExperience = itemStack.getTagCompound().getFloat("totalExperience");
+
                 totalExperience += itemExperience;
-                FurnaceEXPMixins.LOGGER.info("itemExperience = " + itemExperience);
-                FurnaceEXPMixins.LOGGER.log(Level.INFO, "itemExperience smelted.");
-
-            }
-        }
-    }
-
-    @Inject(method = "removeStackFromSlot", at = @At("HEAD"))
-    private void onRemoveStackFromSlot(int index, CallbackInfoReturnable<ItemStack> cir) {
-        TileEntityFurnace furnace = (TileEntityFurnace)(Object)this;
-        if (totalExperience > 0) {
-            // Distribute accumulated experience to players
-            World world = furnace.getWorld();
-            if (!world.isRemote) {
-                List<EntityPlayer> playerList = world.playerEntities;
-                for (EntityPlayer player : playerList) {
-                    player.addExperience((int)totalExperience);
-                    FurnaceEXPMixins.LOGGER.info("totalExperience = " + totalExperience);
+                if(!itemStack.hasTagCompound()){
+                    itemStack.setTagCompound(new NBTTagCompound());
+                    itemStack.getTagCompound().setFloat("totalExperience", totalExperience);
 
                 }
             }
-            totalExperience = 0; // Reset accumulated experience
         }
     }
 
@@ -60,4 +41,7 @@ public abstract class TileEntityFurnaceMixin extends TileEntity {
     private float getSmeltingExperience(ItemStack stack) {
         return FurnaceRecipes.instance().getSmeltingExperience(stack);
     }
+
+
+
 }

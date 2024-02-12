@@ -6,7 +6,8 @@
   "target": "@env(DEFAULT)",
   "minVersion": "0.8",
   "mixins": [
-    "vanilla.TileEntityFurnaceMixin"
+    "vanilla.TileEntityFurnaceMixin",
+    "vanilla.SlotFurnaceOutputMixin"
   ],
   "injectors": {
     "maxShiftBy": 10
