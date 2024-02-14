@@ -14,7 +14,7 @@ public class MixinLoader implements IFMLLoadingPlugin
 	public MixinLoader()
 	{
 		MixinBootstrap.init();
-		Mixins.addConfiguration("mixins.FurnaceEXPMixins.json");
+		Mixins.addConfiguration("mixins.furnaceexpmixins.json");
 	}
 
 	@Override
