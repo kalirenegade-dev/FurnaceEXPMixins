@@ -1,8 +1,8 @@
 @echo off
 timeout /t 2 /nobreak > nul
 
-set "jarPath=build\libs\FurnaceEXPMixins-2.0.0.jar"
-set "destinationPath=C:\Users\micha\OneDrive\Documents\Docker\FurnaceEXPMixins\server\mods\FurnaceEXPMixins-2.0.0.jar"
+set "jarPath=build\libs\furnaceexpmixins-2.0.0.jar"
+set "destinationPath=C:\Users\micha\OneDrive\Documents\Docker\furnaceexpmixins\server\mods\furnaceexpmixins-2.0.0.jar"
 
 echo Deleting "%jarPath%"
 del "%jarPath%" 2>nul || echo File not found or unable to delete.

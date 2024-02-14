@@ -1,4 +1,4 @@
-package FurnaceEXPMixins.mixin;
+package furnaceexpmixins.mixin;
 
 import java.util.Map;
 

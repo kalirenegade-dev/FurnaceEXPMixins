@@ -1,4 +1,4 @@
-package FurnaceEXPMixins.mixin;
+package furnaceexpmixins.mixin;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;

@@ -1,4 +1,4 @@
-package FurnaceEXPMixins.events;
+package furnaceexpmixins.events;
 
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.nbt.NBTTagCompound;
