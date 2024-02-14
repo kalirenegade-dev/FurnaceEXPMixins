@@ -1,8 +1,6 @@
 package FurnaceEXPMixins.events;
 
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.inventory.SlotFurnaceOutput;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;

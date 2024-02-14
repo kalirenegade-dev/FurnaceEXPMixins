@@ -28,3 +28,5 @@ gradle-app.setting
 !src/**/out/
 
 **/server/
+buildLocal.bat
+buildRemote.bat
