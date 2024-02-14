@@ -1,13 +1,12 @@
 {
   "required": true,
   "package": "FurnaceEXPMixins.mixin",
-  "refmap": "mixins.furnaceexpmixins.refmap.json",
+  "refmap": "mixins.FurnaceEXPMixins.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "target": "@env(DEFAULT)",
   "minVersion": "0.8",
   "mixins": [
-    "vanilla.TileEntityFurnaceMixin",
-    "vanilla.SlotFurnaceOutputMixin"
+    "MixinFurnace"
   ],
   "injectors": {
     "maxShiftBy": 10
