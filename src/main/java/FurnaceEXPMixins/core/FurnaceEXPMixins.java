@@ -1,20 +1,20 @@
-package furnaceexpmixins.core;
+package FurnaceEXPMixins.core;
 
-import furnaceexpmixins.events.MixinFurnaceEvents;
+import FurnaceEXPMixins.events.MixinFurnaceEvents;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = furnaceexpmixins.MODID, version = furnaceexpmixins.VERSION, name = furnaceexpmixins.NAME, acceptableRemoteVersions = "*")
-public class furnaceexpmixins
+@Mod(modid = FurnaceEXPMixins.MODID, version = FurnaceEXPMixins.VERSION, name = FurnaceEXPMixins.NAME, acceptableRemoteVersions = "*")
+public class FurnaceEXPMixins
 {
     public static final String MODID = "furnaceexpmixins";
     public static final String VERSION = "2.0.0";
-    public static final String NAME = "furnaceexpmixins";
+    public static final String NAME = "FurnaceEXPMixins";
 
 	@Instance(MODID)
-	public static furnaceexpmixins instance;
+	public static FurnaceEXPMixins instance;
 
 
     @Mod.EventHandler

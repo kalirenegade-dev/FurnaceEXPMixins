@@ -1,4 +1,4 @@
-package furnaceexpmixins.mixin;
+package FurnaceEXPMixins.mixin;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -27,7 +27,8 @@ public abstract class MixinFurnace {
             float xp = getSmeltedItemXP(smeltingItem);
 
             // Debug output
-            System.out.println("Smelted Item XP: " + xp);
+            System.out.println("Smelting experience for item: " + smeltingItem.getItem().getRegistryName() + " is " + xp);
+
 
             // Accumulate XP
             accumulateXP(xp);
@@ -36,16 +37,11 @@ public abstract class MixinFurnace {
 
     private float getSmeltedItemXP(ItemStack smeltedItem) {
         // Debug output
-        System.out.println("Checking smelting experience for item: " + smeltedItem.getItem().getRegistryName());
+        //System.out.println("Checking smelting experience for item: " + smeltedItem.getItem().getRegistryName());
         ItemStack cookedItem = FurnaceRecipes.instance().getSmeltingResult(smeltedItem);
-
 
         // Determine XP value from the smelted item
         float xp = FurnaceRecipes.instance().getSmeltingExperience(cookedItem);
-
-        // Debug output
-        System.out.println("Smelting experience for item: " + smeltedItem.getItem().getRegistryName() + " is " + xp);
-
         return (float) xp;
     }
 
@@ -54,26 +50,25 @@ public abstract class MixinFurnace {
         TileEntityFurnace furnace = (TileEntityFurnace)(Object)this;
 
         // Retrieve current NBT data
-        NBTTagCompound nbt = furnace.writeToNBT(new NBTTagCompound());
-        furnace.readFromNBT(nbt);
+        NBTTagCompound nbt = furnace.getTileData();
+
+        // If NBT data doesn't exist, create a new one
+        if (nbt == null) {
+            nbt = new NBTTagCompound();
+        }
+
         // Retrieve current accumulated XP from NBT
         float currentXP = nbt.getFloat("AccumulatedXP");
-        System.out.println("Current accumulated XP (before addition): " + currentXP);
-        System.out.println("XP to be added: " + xp);
 
         // Accumulate XP
         currentXP += xp;
-        System.out.println("New accumulated XP: " + currentXP);
 
         // Update NBT data with accumulated XP
         nbt.setFloat("AccumulatedXP", currentXP);
-        System.out.println("Updated NBT data: " + nbt);
 
-        // Load updated NBT data into Tile Entity
-        furnace.readFromNBT(nbt);
+        // Save the NBT data
+        furnace.markDirty();
 
-        // Debug output
-        System.out.println("Accumulated XP after update: " + currentXP);
     }
 
 

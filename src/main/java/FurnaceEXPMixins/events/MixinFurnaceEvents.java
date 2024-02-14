@@ -1,9 +1,12 @@
-package furnaceexpmixins.events;
+package FurnaceEXPMixins.events;
 
 import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.inventory.SlotFurnaceOutput;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,15 +23,22 @@ public class MixinFurnaceEvents {
             if (world.getTileEntity(pos) instanceof TileEntityFurnace) {
                 TileEntityFurnace furnace = (TileEntityFurnace) world.getTileEntity(pos);
                 float accumulatedXP = getAccumulatedXPFromNBT(furnace);
-                if (accumulatedXP > 0) {
+
+                int outXP = MathHelper.floor(accumulatedXP);
+                if (outXP < MathHelper.ceil(accumulatedXP) && Math.random() < (double)(accumulatedXP - (float)outXP)) {
+                    ++outXP;
+                }
+
+                if (outXP > 0) {
                     // Drop accumulated XP
-                    while (accumulatedXP > 0) {
-                        float orbXP = Math.min(accumulatedXP, 2477);
-                        accumulatedXP -= orbXP;
+                    while (outXP > 0) {
+                        int orbXP = EntityXPOrb.getXPSplit(outXP);
+                        outXP -= orbXP;
                         world.spawnEntity(new EntityXPOrb(world, pos.getX(), pos.getY(), pos.getZ(), (int)orbXP));
                     }
                     // Reset accumulated XP in NBT
                     furnace.writeToNBT(setAccumulatedXPToNBT(furnace, 0));
+
                 }
             }
         }

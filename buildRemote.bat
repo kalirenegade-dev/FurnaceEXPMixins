@@ -1,8 +1,8 @@
 @echo off
 timeout /t 2 /nobreak > nul
 
-set "jarPath=build\libs\furnaceexpmixins-2.0.0.jar"
-set "destinationPath=U:\instances\RLCraft293HardcoreSponge01\Minecraft\mods\furnaceexpmixins-2.0.0.jar"
+set "jarPath=build\libs\FurnaceEXPMixins-2.0.0.jar"
+set "destinationPath=U:\instances\RLCraft293HardcoreSponge01\Minecraft\mods\FurnaceEXPMixins-2.0.0.jar"
 
 echo Deleting "%jarPath%"
 del "%jarPath%" 2>nul || echo File not found or unable to delete.
