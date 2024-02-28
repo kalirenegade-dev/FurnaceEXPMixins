@@ -27,5 +27,5 @@ echo Deployment successful.
 echo startiing server.
 
 cd server
-java -Xmx2048M -Xms2048M -jar forge-1.12.2-14.23.5.2860-universal.jar -o true nogui
+java -Xmx2048M -Xms2048M -jar forge-1.12.2-14.23.5.2860.jar -o true nogui
 

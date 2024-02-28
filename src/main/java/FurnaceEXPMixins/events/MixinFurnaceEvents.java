@@ -8,20 +8,23 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class MixinFurnaceEvents {
 
-    @SubscribeEvent
-    public static void onBlockBreak(BlockEvent.BreakEvent event) {
+    @SubscribeEvent (priority = EventPriority.HIGHEST)
+    public static void onBlockBreak(BlockEvent.BreakEventBlockEvent event) {
+        System.out.println("Breaking Event started");
+
         World world = event.getWorld();
         if (!world.isRemote) {
             BlockPos pos = event.getPos();
             if (world.getTileEntity(pos) instanceof TileEntityFurnace) {
                 TileEntityFurnace furnace = (TileEntityFurnace) world.getTileEntity(pos);
                 float accumulatedXP = getAccumulatedXPFromNBT(furnace);
-
+                System.out.println("Breaking Event XP:" + accumulatedXP);
                 int outXP = MathHelper.floor(accumulatedXP);
                 if (outXP < MathHelper.ceil(accumulatedXP) && Math.random() < (double)(accumulatedXP - (float)outXP)) {
                     ++outXP;

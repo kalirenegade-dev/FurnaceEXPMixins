@@ -43,8 +43,6 @@ public abstract class MixinSlotFurnaceOutput {
                 ++outXP;
             }
 
-            outXP = 10;
-
             while(outXP > 0) {
                 int orbXP = EntityXPOrb.getXPSplit(outXP);
                 outXP -= orbXP;
