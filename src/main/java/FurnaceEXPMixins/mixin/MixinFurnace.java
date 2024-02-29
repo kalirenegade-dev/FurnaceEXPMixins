@@ -36,8 +36,6 @@ public abstract class MixinFurnace {
         // Debug output
         ItemStack cookedItem = FurnaceRecipes.instance().getSmeltingResult(smeltedItem);
         int quantity = cookedItem.getCount();
-        System.out.println("Resulting items count: " + quantity);
-
 
         // Determine XP value from the smelted item
         float xp = FurnaceRecipes.instance().getSmeltingExperience(cookedItem);
