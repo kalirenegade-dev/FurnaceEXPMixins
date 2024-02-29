@@ -37,7 +37,6 @@ public abstract class MixinSlotFurnaceOutput {
                 furnace = new TileEntityFurnace();
 
             float accumulatedXP = furnace.getTileData().getFloat("AccumulatedXP");
-            System.out.println("Imagine this shit had xp in it lol " + accumulatedXP);
             int outXP = MathHelper.floor(accumulatedXP);
             if (outXP < MathHelper.ceil(accumulatedXP) && Math.random() < (double)(accumulatedXP - (float)outXP)) {
                 ++outXP;

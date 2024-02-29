@@ -26,8 +26,6 @@ public abstract class MixinFurnace {
             // Calculate XP
             float xp = getSmeltedItemXP(smeltingItem);
 
-            // Debug output
-            System.out.println("Smelted Item XP: " + xp);
 
             // Accumulate XP
             accumulateXP(xp);
@@ -36,7 +34,6 @@ public abstract class MixinFurnace {
 
     private float getSmeltedItemXP(ItemStack smeltedItem) {
         // Debug output
-        System.out.println("Checking smelting experience for item: " + smeltedItem.getItem().getRegistryName());
         ItemStack cookedItem = FurnaceRecipes.instance().getSmeltingResult(smeltedItem);
         int quantity = cookedItem.getCount();
         System.out.println("Resulting items count: " + quantity);
@@ -49,9 +46,6 @@ public abstract class MixinFurnace {
         if (xp == 99999.0){
             xp = (quantity); //some items smelt to 9999.0 exp but give out 1xp per item so we will just grab the count
         }
-
-        // Debug output
-        System.out.println("Smelting experience for item: " + smeltedItem.getItem().getRegistryName() + " is " + xp);
 
         return xp;
     }
@@ -70,9 +64,6 @@ public abstract class MixinFurnace {
         currentXP += xp;
 
         nbt.setFloat("AccumulatedXP", currentXP);
-
-        // Debug output
-        System.out.println("Accumulated XP after update: " + currentXP);
     }
 
 

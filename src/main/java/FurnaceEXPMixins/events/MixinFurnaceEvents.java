@@ -8,16 +8,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class MixinFurnaceEvents {
 
-    @SubscribeEvent (priority = EventPriority.HIGHEST)
-    public static void onBlockBreak(BlockEvent.BreakEventBlockEvent event) {
-        System.out.println("Breaking Event started");
-
+    @SubscribeEvent
+    public static void onBlockBreak(BlockEvent.BreakEvent event) {
         World world = event.getWorld();
         if (!world.isRemote) {
             BlockPos pos = event.getPos();
