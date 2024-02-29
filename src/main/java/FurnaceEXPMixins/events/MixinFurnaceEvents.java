@@ -21,7 +21,6 @@ public class MixinFurnaceEvents {
             if (world.getTileEntity(pos) instanceof TileEntityFurnace) {
                 TileEntityFurnace furnace = (TileEntityFurnace) world.getTileEntity(pos);
                 float accumulatedXP = getAccumulatedXPFromNBT(furnace);
-                System.out.println("Breaking Event XP:" + accumulatedXP);
                 int outXP = MathHelper.floor(accumulatedXP);
                 if (outXP < MathHelper.ceil(accumulatedXP) && Math.random() < (double)(accumulatedXP - (float)outXP)) {
                     ++outXP;
@@ -46,10 +45,10 @@ public class MixinFurnaceEvents {
         NBTTagCompound nbt = furnace.getTileData();
         return nbt.getFloat("AccumulatedXP");
     }
-
     private static NBTTagCompound setAccumulatedXPToNBT(TileEntityFurnace furnace, float xp) {
-        NBTTagCompound nbt = furnace.getTileData();
-        nbt.setFloat("AccumulatedXP", xp);
-        return nbt;
+        NBTTagCompound nbt = new NBTTagCompound(); // Create a new NBTTagCompound instance
+        furnace.writeToNBT(nbt); // Write the existing data to the new instance
+        nbt.setFloat("AccumulatedXP", xp); // Set the modified value
+        return nbt; // Return the modified NBTTagCompound
     }
 }

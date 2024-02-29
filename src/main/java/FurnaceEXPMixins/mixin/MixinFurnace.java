@@ -64,6 +64,11 @@ public abstract class MixinFurnace {
         nbt.setFloat("AccumulatedXP", currentXP);
     }
 
-
+private static NBTTagCompound setAccumulatedXPToNBT(TileEntityFurnace furnace, float xp) {
+    NBTTagCompound nbt = new NBTTagCompound(); // Create a new NBTTagCompound instance
+    furnace.writeToNBT(nbt); // Write the existing data to the new instance
+    nbt.setFloat("AccumulatedXP", xp); // Set the modified value
+    return nbt; // Return the modified NBTTagCompound
 }
 
+}
